@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>猜詞彙</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+
+<body onload="init()">
+
+    <div id="initialScreen">
+        <h1>猜詞彙</h1>
+        <button type="submit" class="btn btn-success" onclick="new_game()">開新遊戲</button>
+        <div>或者</div>
+        <div style="margin-bottom:10px">
+            <input type="text" placeholder="輸入遊戲密碼" id="gameCodeInput" style="font-size: 16px;" required/>
+        </div>
+        <button type="submit" class="btn btn-success" onclick="join_game()">加入遊戲</button>
+    </div>
+
+    <div id="gameScreen"  style="display:none">
+        <div class="justify-content-center h-100">
+            <h2>遊戲密碼: <span id="gameCodeDisplay"></span></h2>
+        </div>
+
+        <table class="fixed" align="left">
+            <tr>
+                <td style="width: 220px">
+                    <input type="text" placeholder="看提示猜答案" id="guess" class="guess" onkeypress="guess_keypress(event)"/>
+                    <div>你的分數: <label id="score0" class="score"></label></div>
+                    <div>對方分數: <label id="score1" class="score"></label></div>
+                    <div id="message" class="message"></div>
+                </td>
+                <td style="width: 450px">
+                    <div id="qtitle" class="qtitle"></div>
+                    <div id="hint1" class="hint1"></div>
+                    <div id="hint2" class="hint2"></div>
+                    <div id="hint3" class="hint3"></div>
+                    <button id="nextq" class="btn" onclick="nextq_onclick();">下一題</button>
+                </td>
+                <td>
+                    <img id="photo" class="photo"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client_layout.js"></script>
+    <script src="client_game.js"></script>
+ </body>
+</html>
