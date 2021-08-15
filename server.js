@@ -176,7 +176,7 @@ function get_answer(word)
         const Flickr = require("flickrapi");
         const flickrOptions = {
           api_key: "793a43c4b81abed1439016035dcdc968",
-          secret: "5f386c37a680a6f4",
+          //secret: "5f386c37a680a6f4",
           requestOptions: {
             timeout: 1000,
             /* other default options accepted by request.defaults */
