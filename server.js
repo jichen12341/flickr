@@ -121,7 +121,7 @@ async function init_flickr(socket, roomName)
     //while (true)
     {
         var photos = await get_answer("car");
-        console.log(photos);
+        //console.log(photos);
         if (photos.length >= 10)
         {
             //break;
@@ -170,27 +170,37 @@ async function handle_start_turn(roomName)
     });
 }*/
 
+const Flickr = require("flickrapi");
+const flickrOptions = {
+    api_key: "793a43c4b81abed1439016035dcdc968",
+    secret: "5f386c37a680a6f4",
+    requestOptions: {
+        timeout: 1000,
+        /* other default options accepted by request.defaults */
+    }
+};
+Flickr.tokenOnly(flickrOptions, function(err, flickrObject) {
+    if (err)
+    {
+        return console.error(err);
+    }
+    //console.log('flickr', flickrObject);
+    flickr = flickrObject;
+});
 function get_answer(word)
 {
     return new Promise((resolve, reject) => {
-        const Flickr = require("flickrapi");
-        const flickrOptions = {
-          api_key: "793a43c4b81abed1439016035dcdc968",
-          //secret: "5f386c37a680a6f4",
-          requestOptions: {
-            timeout: 1000,
-            /* other default options accepted by request.defaults */
-          }
-        };
-        Flickr.tokenOnly(flickrOptions, function(error, flickr) {
-            flickr.photos.search({
-                text: word,
-                page: 1,
-                per_page: 18
-            }, function(err, result) {
-                //gState[roomName]['photos'] = result['photos']['photo'];
-                resolve(result['photos']['photo']);
-            });
-        })
+        if (!flickr)
+        {
+            reject(res.status(500).json({ error: 'flickr not ready yet' }));
+        }
+        flickr.photos.search({
+            text: word,
+            page: 1,
+            per_page: 18
+        }, function(err, result) {
+            //gState[roomName]['photos'] = result['photos']['photo'];
+            resolve(result['photos']['photo']);
+        });
     });
 }
