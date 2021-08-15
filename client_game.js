@@ -48,10 +48,10 @@ function join_game()
     gPlayerNo = 1;
 }
 
-gSocket.on('game code', function(gameCode) {
+gSocket.on('game code', function(gameCode, photos) {
     gameCodeDisplay.innerText = gameCode;
 
-    //goto_hint1(photos);
+    goto_hint1(photos);
     //console.log(photos);
     //var photo = document.getElementById('photo');
     //photo.src="http://farm66.static.flickr.com/65535/51134388636_89b17876a0_b.jpg";

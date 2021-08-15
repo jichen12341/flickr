@@ -12,7 +12,7 @@ if (!String.prototype.format) {
 }
 // "{0} is dead, but {1} is alive! {0} {2}".format("ASP", "ASP.NET")
 
-function display_hint1(photos)  // bing
+/*function display_hint1(photos)  // bing
 {
     console.log(photos);
     var hint = document.getElementById('hint1');
@@ -34,9 +34,9 @@ function display_hint1(photos)  // bing
         if (i >= 20)
             break;
     }
-}
+}*/
 
-/*function display_hint1(photos)  // Flickr
+function display_hint1(photos)  // Flickr
 {
     console.log(photos);
     var hint = document.getElementById('hint1');
@@ -54,7 +54,7 @@ function display_hint1(photos)  // bing
         hint.appendChild(elm);
         console.log("elm", elm.src);
     }
-}*/
+}
 
 
 function display_hint2(answer)

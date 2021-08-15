@@ -127,7 +127,7 @@ async function init_flickr(socket, roomName)
             //break;
         }
     }
-    //socket.emit('game code', roomName, gState[roomName]['photos']);
+    socket.emit('game code', roomName, photos);
 
 
 }
