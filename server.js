@@ -184,7 +184,7 @@ Flickr.tokenOnly(flickrOptions, function(err, flickrObject) {
     {
         return console.error(err);
     }
-    //console.log('flickr', flickrObject);
+    console.log('flickr', flickrObject);
     flickr = flickrObject;
 });
 function get_answer(word)
