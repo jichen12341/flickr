@@ -6,6 +6,7 @@ const io = require('socket.io')(http);
 const fs = require('fs');
 const readline = require('readline');
 const port = process.env.PORT || 3000;
+const Flickr = require('flickr-sdk');
 
 var gClientRooms = {};
 var gDatabase;
@@ -113,6 +114,11 @@ async function init()
     //gState["init"] = {'answer':[], 'ready':[true, true], 'photos':[]};
     //await get_answer("init");
 
+    const Generator = require('@ftlab/chinese-generator/core/index.es5').default;
+    // create chinese name
+    const cn = Generator.random();
+    console.log(cn);
+
 }
 
 async function init_flickr(socket, roomName)
@@ -121,11 +127,11 @@ async function init_flickr(socket, roomName)
     //while (true)
     {
         var photos = await get_answer("car");
-        //console.log(photos);
-        if (photos.length >= 10)
+        console.log(photos);
+        /*if (photos.length >= 10)
         {
             //break;
-        }
+        }*/
     }
     socket.emit('game code', roomName, photos);
 
@@ -170,27 +176,38 @@ async function handle_start_turn(roomName)
     });
 }*/
 
-const Flickr = require("flickrapi");
+/*const Flickr = require("flickrapi");
 const flickrOptions = {
     api_key: "793a43c4b81abed1439016035dcdc968",
     secret: "5f386c37a680a6f4",
     requestOptions: {
         timeout: 1000,
-        /* other default options accepted by request.defaults */
+
     }
 };
+
 Flickr.tokenOnly(flickrOptions, function(err, flickrObject) {
     if (err)
     {
         return console.error(err);
     }
-    console.log('flickr', flickrObject);
+    //console.log('flickr', flickrObject);
     flickr = flickrObject;
-});
+});*/
 function get_answer(word)
 {
     return new Promise((resolve, reject) => {
-        if (!flickr)
+        var flickr = new Flickr("793a43c4b81abed1439016035dcdc968");
+        flickr.photos.search({
+            text: word
+        }).then(function (res) {
+            //console.log('yay!', res.body);
+            resolve(res.body["photos"]["photo"]);
+        }).catch(function (err) {
+            reject(err);
+        });
+
+        /*if (!flickr)
         {
             reject(res.status(500).json({ error: 'flickr not ready yet' }));
         }
@@ -201,6 +218,6 @@ function get_answer(word)
         }, function(err, result) {
             //gState[roomName]['photos'] = result['photos']['photo'];
             resolve(result['photos']['photo']);
-        });
+        });*/
     });
 }
